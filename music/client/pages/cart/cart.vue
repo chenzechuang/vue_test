@@ -1,12 +1,16 @@
 <template v-if="list.length">
     <div>
-        <table v-for="(item, index) in list">
+        <home 
+            :message="totalPrice"
+            @formatter="formatterPrice">
+        </home>
+        <table v-for="(item, index) in list" v-if="item.children.length">
             <caption>
                 {{ item.category }}
             </caption>
             <thead>
                 <tr>
-                    <th></th>
+                    <th><input type="checkbox" name="checkAll" v-model="item.checkAll" @click="checkAll(item)"></th>
                     <th>名称</th>
                     <th>单价</th>
                     <th>数量</th>
@@ -14,80 +18,146 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(good, index) in item.children" :key="index">
-                    <td>{{ index + 1 }}</td>
+                <tr v-for="(good, idx) in item.children">
+                    <td><input type="checkbox" name="check" v-model="good.check"></td>
                     <td>{{ good.name }}</td>
                     <td>{{ good.price }}</td>
                     <td>
-                        <button>{{ good.count }}</button>
+                        <button
+                            @click="handleReduce(good)"
+                            :disabled="good.count === 1">-</button>
+                        {{ good.count }}
+                        <button @click="handleAdd(good)">+</button>
                     </td>
-                    <td>操作</td>
+                    <td>
+                        <button @click="handleRemove(index, idx)">移除</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div>总价：￥ {{ totalPrice }}</div>
     </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            list: [
-                {
-                    category: "水果",
-                    children: [
-                        {
-                            id: 1,
-                            name: "苹果",
-                            price: 5,
-                            count: 1
-                        },
-                        {
-                            id: 2,
-                            name: "香蕉",
-                            price: 3,
-                            count: 1
+    import home from '../../../client/pages/home/home'
+    export default {
+        data() {
+            return {
+                list: [
+                    {
+                        category: "水果",
+                        children: [
+                            {
+                                id: 1,
+                                name: "苹果",
+                                price: 5,
+                                count: 1,
+                                check: false
+                            },
+                            {
+                                id: 2,
+                                name: "香蕉",
+                                price: 3,
+                                count: 1,
+                                check: false
+                            }
+                        ]
+                    },
+                    {
+                        category: "手机",
+                        children: [
+                            {
+                                id: 10,
+                                name: "Iphone 8",
+                                price: 5888,
+                                count: 1,
+                                check: false
+                            },
+                            {
+                                id: 11,
+                                name: "小米9",
+                                price: 3999,
+                                count: 1,
+                                check: false
+                            }
+                        ]
+                    },
+                    {
+                        category: "家电",
+                        children: [
+                            {
+                                id: 100,
+                                name: "冰箱",
+                                price: 2200,
+                                count: 1,
+                                check: false
+                            },
+                            {
+                                id: 101,
+                                name: "空调",
+                                price: 3999,
+                                count: 1,
+                                check: false
+                            }
+                        ]
+                    }
+                ]
+            };
+        },
+        components: {
+            home,
+        },
+        computed: {
+            totalPrice() {
+                let total = 0;
+                let _this = this;
+                for (let i = 0; i < _this.list.length; i++) {
+                    if (_this.list[i].checkAll) {
+                        for (let j = 0; j < _this.list[i].children.length; j++) {
+                            total += _this.list[i].children[j].count * _this.list[i].children[j].price;
                         }
-                    ]
-                },
-                {
-                    category: "手机",
-                    children: [
-                        {
-                            id: 10,
-                            name: "Iphone 8",
-                            price: 5888,
-                            count: 1
-                        },
-                        {
-                            id: 11,
-                            name: "小米9",
-                            price: 3999,
-                            count: 1
+                    } else {
+                        for (let j = 0; j < _this.list[i].children.length; j++) {
+                            if (_this.list[i].children[j].check) {
+                                total += _this.list[i].children[j].count * _this.list[i].children[j].price;
+                            }
                         }
-                    ]
-                },
-                {
-                    category: "家电",
-                    children: [
-                        {
-                            id: 100,
-                            name: "冰箱",
-                            price: 2200,
-                            count: 1
-                        },
-                        {
-                            id: 101,
-                            name: "空调",
-                            price: 3999,
-                            count: 1
-                        }
-                    ]
+                    }
                 }
-            ]
-        };
-    }
-};
+                return total.toString().replace(/\B(?=(\d{3})+$)/g, ',');
+            }
+        },
+        methods: {
+            handleReduce(item) {
+                if (item.index === 1) {
+                    return;
+                } else {
+                    item.count--;
+                }
+            },
+            handleAdd(item) {
+                item.count++;
+            },
+            handleRemove(index, idx) {
+                this.list[index].children.splice(idx, 1);
+            },  
+            checkAll(item) {
+                if(item.checkAll) {
+                    for (let i = 0; i < item.children.length; i++) {
+                        item.children[i].check = false;
+                    }
+                } else {
+                    for (let i = 0; i < item.children.length; i++) {
+                        item.children[i].check = true;
+                    }
+                }
+            },
+            formatterPrice() {
+                this.checkAll(this.list[0]);
+            }
+        },
+    };
 </script>
 
 <style lang="scss" scoped>

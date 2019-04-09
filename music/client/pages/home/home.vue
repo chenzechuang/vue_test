@@ -7,6 +7,7 @@
         <p v-if="showName">{{ prices }}</p>
         <p>{{ time | formatDate }}</p>
         <a v-html="link" :href="url" @click="toggleName"></a>
+        <div @click="handlePrice">{{ message }}</div>
     </div>
 </template>
 
@@ -41,6 +42,7 @@
                 ]
             };
         },
+        props:  ['message'],
         computed: {
             prices() {
                 let prices = 0;
@@ -68,6 +70,9 @@
         methods: {
             toggleName() {
                 this.showName = !this.showName;
+            },
+            handlePrice() {
+                this.$emit('formatter');
             }
         },
         filters: {
