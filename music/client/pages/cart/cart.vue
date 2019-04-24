@@ -1,5 +1,8 @@
 <template v-if="list.length">
     <div>
+        <component :is="currentView"></component>
+        <button @click="changeView('About')">关于</button>
+        <button @click="changeView('Other')">其它</button>
         <home 
             :message="totalPrice"
             @formatter="formatterPrice">
@@ -35,12 +38,15 @@
                 </tr>
             </tbody>
         </table>
-        <div>总价：￥ {{ totalPrice }}</div>
+        <div id="total" v-if="showTotal">总价：￥ {{ totalPrice }}</div>
+        <button @click="getTotal()">价格</button>
     </div>
 </template>
 
 <script>
-    import home from '../../../client/pages/home/home'
+    import home from '../home/home'
+    import other from '../other/other'
+    import about from '../about/about'
     export default {
         data() {
             return {
@@ -102,11 +108,15 @@
                             }
                         ]
                     }
-                ]
+                ],
+                currentView: 'comAbout',
+                showTotal: false
             };
         },
         components: {
             home,
+            comAbout: about,
+            comOther: other
         },
         computed: {
             totalPrice() {
@@ -129,6 +139,16 @@
             }
         },
         methods: {
+            changeView: function(view) {
+                this.currentView = 'com' + view
+            },
+            getTotal: function() {
+                this.showTotal = true;
+                this.$nextTick(function() {
+                    var text = document.getElementById("total").innerHTML;
+                    console.log(text)
+                })
+            },
             handleReduce(item) {
                 if (item.index === 1) {
                     return;
