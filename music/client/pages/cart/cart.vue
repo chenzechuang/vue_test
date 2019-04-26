@@ -3,6 +3,7 @@
         <component :is="currentView"></component>
         <button @click="changeView('About')">关于</button>
         <button @click="changeView('Other')">其它</button>
+        <input-number v-model="value" :min="0" :max="10" @changenum="changeNumber"></input-number>
         <home 
             :message="totalPrice"
             @formatter="formatterPrice">
@@ -47,6 +48,7 @@
     import home from '../home/home'
     import other from '../other/other'
     import about from '../about/about'
+    import inputNumber from '../../components/common/input-number'
     export default {
         data() {
             return {
@@ -110,13 +112,15 @@
                     }
                 ],
                 currentView: 'comAbout',
-                showTotal: false
+                showTotal: false,
+                value: 5
             };
         },
         components: {
             home,
             comAbout: about,
-            comOther: other
+            comOther: other,
+            'input-number': inputNumber
         },
         computed: {
             totalPrice() {
@@ -175,6 +179,10 @@
             },
             formatterPrice() {
                 this.checkAll(this.list[0]);
+            },
+            changeNumber() {
+                console.log("Number has changed!");
+                
             }
         },
     };
