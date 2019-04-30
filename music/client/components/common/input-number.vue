@@ -30,7 +30,7 @@
         watch: {
             currentValue: function(val) {
                 this.$emit('input', val);
-                this.$emit('changenum');
+                this.$emit('changenum', val);
             },
             value: function(val) {
                 this.updateValue(val);

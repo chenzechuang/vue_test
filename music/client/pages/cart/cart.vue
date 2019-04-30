@@ -147,6 +147,7 @@
                 this.currentView = 'com' + view
             },
             getTotal: function() {
+                this.value = 4;
                 this.showTotal = true;
                 this.$nextTick(function() {
                     var text = document.getElementById("total").innerHTML;
@@ -180,9 +181,8 @@
             formatterPrice() {
                 this.checkAll(this.list[0]);
             },
-            changeNumber() {
-                console.log("Number has changed!");
-                
+            changeNumber(val) {
+                console.log(val);
             }
         },
     };
