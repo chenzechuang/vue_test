@@ -1,8 +1,8 @@
 <template>
     <div>
-        <input type="text" :value="currentValue" @change="handleChange">
-        <button @click="handleNumber('increase')" :disabled="currentValue <= min">+</button>
-        <button @click="handleNumber('reduce')" :disabled="currentValue >= max">-</button>
+        <input type="text" :value="currentValue" @change="handleChange" @focus="listenUpDown" @blur="unListenUpDown">
+        <button @click="handleNumber('increase')" :disabled="currentValue >= max">+</button>
+        <button @click="handleNumber('reduce')" :disabled="currentValue <= min">-</button>
     </div>
 </template>
 
@@ -20,6 +20,10 @@
             value: {
                 type: Number,
                 default: 0
+            },
+            step: {
+                type: Number,
+                default: 1
             }
         },
         data() {
@@ -45,13 +49,13 @@
                     if (this.currentValue >= this.max) {
                         return
                     } else {
-                        this.currentValue++;
+                        this.currentValue += this.step;
                     }
                 } else {
                     if (this.currentValue <= this.min) {
                         return
                     } else {
-                        this.currentValue--;
+                        this.currentValue -= this.step;
                     }
                 }
             },
@@ -76,6 +80,19 @@
                     val = this.min;
                 }
                 this.currentValue = val;
+            },
+            handleKeyDown(event) {
+                if (event.keyCode == 40) {
+                    this.currentValue -= this.step;
+                } else if (event.keyCode == 38) {
+                    this.currentValue += this.step;
+                }
+            },
+            listenUpDown(event) {
+                event.target.addEventListener("keydown", this.handleKeyDown);
+            },
+            unListenUpDown(event) {
+                event.target.removeEventListener("keydown", this.handleKeyDown);
             }
         },
         mounted() {

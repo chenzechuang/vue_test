@@ -3,7 +3,7 @@
         <component :is="currentView"></component>
         <button @click="changeView('About')">关于</button>
         <button @click="changeView('Other')">其它</button>
-        <input-number v-model="value" :min="0" :max="10" @changenum="changeNumber"></input-number>
+        <input-number v-model="value" :step="10" :min="0" :max="100" @changenum="changeNumber"></input-number>
         <home 
             :message="totalPrice"
             @formatter="formatterPrice">
@@ -41,6 +41,17 @@
         </table>
         <div id="total" v-if="showTotal">总价：￥ {{ totalPrice }}</div>
         <button @click="getTotal()">价格</button>
+        <tabs v-model="activeKey">
+            <pane label="标签一" name="1">
+                标签一的内容
+            </pane>
+            <pane label="标签二" name="1">
+                标签二的内容
+            </pane>
+            <pane label="标签一" name="1">
+                标签一的内容
+            </pane>
+        </tabs>
     </div>
 </template>
 
@@ -49,6 +60,8 @@
     import other from '../other/other'
     import about from '../about/about'
     import inputNumber from '../../components/common/input-number'
+    import pane from '../panel/pane'
+    import tabs from '../panel/tabs'
     export default {
         data() {
             return {
@@ -113,7 +126,8 @@
                 ],
                 currentView: 'comAbout',
                 showTotal: false,
-                value: 5
+                value: 5,
+                activeKey: "1"
             };
         },
         components: {
