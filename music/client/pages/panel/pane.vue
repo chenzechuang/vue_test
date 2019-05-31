@@ -5,6 +5,7 @@
 </template>
 <script>
 export default {
+    name : 'pane',
     props: {
         name: {
             type: String
@@ -12,6 +13,10 @@ export default {
         label: {
             type: String,
             default: ''
+        },
+        prop: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -30,6 +35,9 @@ export default {
         }
     },
     mounted() {
+        this.updateNav();
+    },
+    beforeDestroy() {
         this.updateNav();
     }
 }

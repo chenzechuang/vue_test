@@ -41,15 +41,15 @@
         </table>
         <div id="total" v-if="showTotal">总价：￥ {{ totalPrice }}</div>
         <button @click="getTotal()">价格</button>
-        <tabs v-model="activeKey">
-            <pane label="标签一" name="1">
+        <tabs v-model="activeKey" v-cloak>
+            <pane label="标签一" name="1" :prop="true">
                 标签一的内容
             </pane>
-            <pane label="标签二" name="1">
+            <pane label="标签二" name="2" :prop="true">
                 标签二的内容
             </pane>
-            <pane label="标签一" name="1">
-                标签一的内容
+            <pane label="标签三" name="3" :prop="true">
+                标签三的内容
             </pane>
         </tabs>
     </div>
@@ -132,6 +132,8 @@
         },
         components: {
             home,
+            pane,
+            tabs,
             comAbout: about,
             comOther: other,
             'input-number': inputNumber
