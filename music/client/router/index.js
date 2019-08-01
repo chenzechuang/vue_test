@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Cart from '../pages/cart/cart';
+import questionnaire from '../pages/questionnaire/questionnaire';
 
 Vue.use(Router);
 
@@ -9,7 +9,7 @@ export default new Router({
   routes: [{
     path: '/',
     components: {
-      cart: Cart,
+        questionnaire: questionnaire,
     }
   }]
 });

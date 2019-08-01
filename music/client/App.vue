@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
     <div class="container">
-      <router-view name="cart"></router-view>
+      <router-view name="questionnaire"></router-view>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template v-if="list.length">
     <div>
+        <dropdown></dropdown>
         <component :is="currentView"></component>
         <button @click="changeView('About')">关于</button>
         <button @click="changeView('Other')">其它</button>
@@ -62,6 +63,7 @@
     import inputNumber from '../../components/common/input-number'
     import pane from '../panel/pane'
     import tabs from '../panel/tabs'
+    import dropdown from '../dropdown/dropdown'
     export default {
         data() {
             return {
@@ -134,6 +136,7 @@
             home,
             pane,
             tabs,
+            dropdown,
             comAbout: about,
             comOther: other,
             'input-number': inputNumber
