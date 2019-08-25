@@ -9,7 +9,7 @@
             :message="totalPrice"
             @formatter="formatterPrice">
         </home>
-        <table v-for="(item, index) in list" v-if="item.children.length">
+        <table v-for="(item, index) in list" :key="index">
             <caption>
                 {{ item.category }}
             </caption>
@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(good, idx) in item.children">
+                <tr v-for="(good, idx) in item.children" :key="idx">
                     <td><input type="checkbox" name="check" v-model="good.check"></td>
                     <td>{{ good.name }}</td>
                     <td>{{ good.price }}</td>
@@ -53,6 +53,7 @@
                 标签三的内容
             </pane>
         </tabs>
+        <v-table :columns="tableColumns" :data="tableData"></v-table>
     </div>
 </template>
 
@@ -64,6 +65,7 @@
     import pane from '../panel/pane'
     import tabs from '../panel/tabs'
     import dropdown from '../dropdown/dropdown'
+    import vTable from '../../components/common/v-table'
     export default {
         data() {
             return {
@@ -129,7 +131,53 @@
                 currentView: 'comAbout',
                 showTotal: false,
                 value: 5,
-                activeKey: "1"
+                activeKey: "1",
+                tableColumns: [
+                    {
+                        label: '姓名',
+                        key: 'name',
+                    },
+                    {
+                        label: '年龄',
+                        key: 'age',
+                        sortable: true
+                    },
+                    {
+                        label: '出生日期',
+                        key: 'birth',
+                        sortable: true
+                    },
+                    {
+                        label: '地址',
+                        key: 'address',
+                    }
+                ],
+                tableData: [
+                    {
+                        name: '王小明',
+                        age: '18',
+                        birth: '1999-02-02',
+                        address: '广东省'   
+                    },
+                    {
+                        name: '王小明',
+                        age: '19',
+                        birth: '1999-02-02',
+                        address: '广东省'   
+                    },
+                    {
+                        name: '王小明',
+                        age: '20',
+                        birth: '1999-02-02',
+                        address: '广东省'   
+                    },
+                    {
+                        name: '王小明',
+                        age: '21',
+                        birth: '1999-02-02',
+                        address: '广东省'   
+                    }
+                ]
             };
         },
         components: {
@@ -139,7 +187,8 @@
             dropdown,
             comAbout: about,
             comOther: other,
-            'input-number': inputNumber
+            'input-number': inputNumber,
+            'v-table': vTable
         },
         computed: {
             totalPrice() {

@@ -1,6 +1,6 @@
 <template>
     <div class="questionnaire">
-        <div v-show="page == 1">
+        <div class="page" v-show="page == 1">
             <p>1、请问你的性别是：</p>
             <label><input type="radio" value="male" v-model="checkedGender">男</label>
             <label><input type="radio" value="female" v-model="checkedGender">女</label>
@@ -11,8 +11,8 @@
             </div>
             
         </div>
-        <div v-show="page == 2">
-            <p>1、请问你的兴趣爱好是：</p>
+        <div class="page" v-show="page == 2">
+            <p>2、请问你的兴趣爱好是：</p>
             <label><input type="checkbox" value="book" v-model="checkedTaste">看书</label>
             <label><input type="checkbox" value="swim" v-model="checkedTaste">游泳</label>
             <label><input type="checkbox" value="run" v-model="checkedTaste">跑步</label>
@@ -23,14 +23,17 @@
                 <handle-button @on-click="handleProgress" color="white" text="重置"></handle-button>
             </div>
         </div>
-        <div v-show="page == 3">
-            <p>1、请介绍一下自己：</p>
-            <textarea name="introduction" placeholder="不少于100字" min="100" ng-model="introText"></textarea>
+        <div class="page" v-show="page == 3">
+            <p>3、请介绍一下自己：</p>
+            <textarea name="introduction" placeholder="不少于100字" min="100" v-model="introText"></textarea>
             <div class="footer">
                 <handle-button @on-click="handleProgress" :color="btnColor" :disabled="isNext" text="提交"></handle-button>
                 <handle-button @on-click="handleProgress" color="white" text="上一步"></handle-button>
                 <handle-button @on-click="handleProgress" color="white" text="重置"></handle-button>
             </div>
+        </div>
+        <div class="page" v-show="page == 4">
+            <p>问卷完成</p>
         </div>
     </div>
 </template>
@@ -65,6 +68,8 @@
         },
         methods: {
             handleProgress(index, resetPage) {
+                console.log(1);
+                
                 let _this = this;
                 if (resetPage) {
                     if (_this.page == 1) {
@@ -86,9 +91,9 @@
         width: 640px;
         border: 1px solid #ccc;
         background: #f2f2f2;
+
     }
     .footer {
         display: flex;
-        
     }
 </style>

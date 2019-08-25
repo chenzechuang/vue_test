@@ -25,10 +25,12 @@ export default {
     },
     methods: {
         getProgress() {
+            console.log(1);
+            
             let _this = this;
             let currentPage = this.$parent.page;
             let reset = false;
-            if (_this.content == '下一步') {
+            if (_this.content == '下一步' || _this.content == '提交') {
                 currentPage++;
             } else if (_this.content == '上一步') {
                 currentPage--;
