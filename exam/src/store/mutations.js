@@ -14,7 +14,8 @@ export default {
 
     [REMBER_TIME](state) {
         state.timer = setInterval(() => {
-			state.allTime++;
+            state.allTime++;
+            console.log(state.allTime);
 		}, 1000)
     },
 

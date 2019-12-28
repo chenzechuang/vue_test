@@ -4,6 +4,8 @@ import Vue from 'vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css';
+import './style/index.scss'
+import './config/rem'
 import App from './App'
 import store from './store/'
 import router from './router'

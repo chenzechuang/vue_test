@@ -8,14 +8,14 @@ export const constantRoutes = [
     path: '',
     component: () => import('@/views/home'),
   },
-//   {
-//     path: '/item',
-//     component: () => import('@/views/item'),
-//   },
-//   {
-//     path: '/score',
-//     component: () => import('@/views/score'),
-//   }
+  {
+    path: '/item',
+    component: () => import('@/views/item'),
+  },
+  {
+    path: '/score',
+    component: () => import('@/views/score'),
+  }
 ]
 
 export default new Router({
