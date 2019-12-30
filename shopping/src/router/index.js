@@ -5,8 +5,12 @@ Vue.use(Router)
 
 export const constantRoutes = [
   {
-    path: '/',
-    component: () => import('@/components/index'),
+    path: '/login',
+    component: () => import('@/views/login'),
+  },
+  {
+    path: '',
+    component: () => import('@/views/home'),
   }
 ]
 
