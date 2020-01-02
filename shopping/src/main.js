@@ -5,29 +5,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css';
 import App from './App'
+import store from './store'
 import router from './router'
 import Vuex from 'vuex'
+import './permission' // permission control
 
 
 Vue.config.productionTip = false
 
 Vue.use(Vuex);
 Vue.use(ElementUI);
-
-const store = new Vuex.Store({
-    state: {
-
-    },
-    getters: {
-        
-    },
-    mutations: {
-
-    },
-    actions: {
-
-    }
-})
 
 /* eslint-disable no-new */
 new Vue({

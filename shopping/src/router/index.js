@@ -8,10 +8,10 @@ export const constantRoutes = [
     path: '/login',
     component: () => import('@/views/login'),
   },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/authredirect')
-  },
+//   {
+//     path: '/auth-redirect',
+//     component: () => import('@/views/login/authredirect')
+//   },
   {
     path: '',
     component: () => import('@/views/home'),
