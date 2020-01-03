@@ -7,13 +7,11 @@ import 'normalize.css/normalize.css';
 import App from './App'
 import store from './store'
 import router from './router'
-import Vuex from 'vuex'
 import './permission' // permission control
+import './mock'
 
 
 Vue.config.productionTip = false
-
-Vue.use(Vuex);
 Vue.use(ElementUI);
 
 /* eslint-disable no-new */

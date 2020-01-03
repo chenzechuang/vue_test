@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken} from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 const services = axios.create({
   baseURL: process.env.BASE_API,
@@ -10,7 +10,7 @@ const services = axios.create({
 
 services.interceptors.request.use(
   config => {
-    if (store.gatters.token) {
+    if (store.getters.token) {
       config.headers['X-Token'] = getToken();
     }
     return config;
@@ -24,7 +24,8 @@ services.interceptors.response.use(
   response => response,
 
   error => {
-    Message.error({
+    console.log('err' + error);
+    Message({
       message: error.message,
       type: 'error',
       duration: 5 * 1000
