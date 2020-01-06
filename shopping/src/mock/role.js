@@ -1,6 +1,9 @@
 import Mock from 'mockjs'
 import { deepClone } from '@/utils'
+import { filterAsyncRoutes } from '@/store/modules/permission'
+import { constantRoutes, asyncRoutes } from '@/router'
 
+const routes = deepClone([...constantRoutes, ...asyncRoutes]);
 
 const roles = [{
     key: 'admin',
@@ -34,5 +37,25 @@ const roles = [{
 ]
 
 export default {
-    
+  getRoutes() {
+    return routes;
+  },
+  getRoles() {
+    return roles;
+  },
+  addRole() {
+    return Mock.mock('@integer(300, 5000)')
+  },
+  updateRole() {
+    const res = {
+      data: 'success'
+    }
+    return res
+  },
+  deleteRole() {
+    const res = {
+      data: 'success'
+    }
+    return res
+  }
 }

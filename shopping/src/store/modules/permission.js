@@ -1,4 +1,4 @@
-import { constantsRoutes, asyncRoutes } from '@/router'
+import { constantRoutes, asyncRoutes } from '@/router'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -18,8 +18,18 @@ function hasPemission (roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(roles, routes) {
-    
+export function filterAsyncRoutes(routes, roles) {
+    const res = [];
+    routes.forEach(route => {
+        const tmp = { ...route };
+        if (hasPemission(roles, tmp)) {
+            if (tmp.children) {
+                tmp.children = filterAsyncRoutes(tmp.children, roles);
+            }
+            res.push(tmp);
+        }
+    });
+    return res;
 }
 
 const permission = {
@@ -28,10 +38,25 @@ const permission = {
         addRoutes: []
     },
     mutations: {
-
+        SET_ROUTES: (state, routes) => {
+            state.addRoutes = routes;
+            state.routes = constantRoutes.concat(routes);
+        }
     },
     actions: {
-
+        GenerateRoutes({ commit }, data) {
+            return new Promise(resolve => {
+                const { roles } = data;
+                let accessedRoutes;
+                if (roles.includes('admin')) {
+                    accessedRoutes = asyncRoutes;
+                } else {
+                    accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
+                }
+                commit('SET_ROUTES', accessedRoutes);
+                resolve(accessedRoutes);
+            })
+        }
     }
 }
 

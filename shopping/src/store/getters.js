@@ -1,5 +1,5 @@
 const getters = {
-    // sidebar: state => state.app.sidebar,
+    sidebar: state => state.app.sidebar,
     // language: state => state.app.language,
     // size: state => state.app.size,
     // device: state => state.app.device,
@@ -12,8 +12,8 @@ const getters = {
     status: state => state.user.status,
     roles: state => state.user.roles,
     setting: state => state.user.setting,
-    // permission_routes: state => state.permission.routes,
-    // addRoutes: state => state.permission.addRoutes,
+    permission_routes: state => state.permission.routes,
+    addRoutes: state => state.permission.addRoutes,
     // errorLogs: state => state.errorLog.logs
   }
   export default getters

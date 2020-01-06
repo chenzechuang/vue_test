@@ -7,6 +7,15 @@ Vue.use(Router)
 import Layout from '@/views/layout/Layout'
 
 export const constantRoutes = [{
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '/redirect/:path*',
+      component: () => import('@/views/redirect/index')
+    }]
+  },
+  {
     path: '/login',
     component: () => import('@/views/login'),
   },
@@ -53,7 +62,7 @@ export const asyncRoutes = [{
         name: 'PagePermission',
         meta: {
           title: 'pagePermission',
-          roles: ['admin'] // or you can only set roles in sub nav
+          roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
       },
  /*      {

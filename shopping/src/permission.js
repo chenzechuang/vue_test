@@ -15,8 +15,7 @@ const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
   NProgress.start();
   if (getToken()) {
-    next();
-    /* if (to.path === '/login') {
+    if (to.path === '/login') {
       next({ path: '/' });
     } else {
       if (store.getters.roles.length === 0) {
@@ -24,7 +23,7 @@ router.beforeEach((to, from, next) => {
           const roles = res.data.roles;
           store.dispatch('GenerateRoutes', {roles}).then(accessRoutes => {
             router.addRoutes(accessRoutes);
-            next({...to, replace: true});
+            next({replace: true});
           })
         }).catch(err => {
           store.dispatch('FedLogOut').then(() => {
@@ -33,7 +32,7 @@ router.beforeEach((to, from, next) => {
           })
         })
       }
-    } */
+    }
   } else {
     if (whiteList.indexOf(to.path) != -1) {
       next();
