@@ -1,14 +1,20 @@
 <template>
-    <div :class="classObj" class="app-container">
-      <sidebar class="sidebar-container"></sidebar>
+    <div class="app-wrapper">
+      <navbar class="navbar-container" />
+      <div :class="classObj" class="body-container">
+        <sidebar class="sidebar-container" />
+        <div class="main-container">
+          <app-main />
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
-  import Sidebar from './components/Sidebar'
+  import { Navbar, Sidebar, AppMain } from './components'
   export default {
     name: 'Layout',
-    components: { Sidebar },
+    components: { Navbar, Sidebar, AppMain },
     computed: {
       sidebar() {
         return this.$store.state.app.sidebar
@@ -25,7 +31,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .app-container {
+  .app-wrapper {
     position: relative;
     width: 100%;
     height: 100%;

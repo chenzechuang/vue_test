@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
           const roles = res.data.roles;
           store.dispatch('GenerateRoutes', {roles}).then(accessRoutes => {
             router.addRoutes(accessRoutes);
-            next({replace: true});
+            next({...to, replace: true});  // hack方法 确保addRoutes已完成
           })
         }).catch(err => {
           store.dispatch('FedLogOut').then(() => {
@@ -31,6 +31,15 @@ router.beforeEach((to, from, next) => {
             next({ path: '/' })
           })
         })
+      } else {
+        next();
+        // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
+        /* if (hasPermission(store.getters.roles, to.meta.roles)) {
+          next()
+        } else {
+          next({ path: '/401', replace: true, query: { noGoBack: true }})
+        } */
+        // 可删 ↑
       }
     }
   } else {

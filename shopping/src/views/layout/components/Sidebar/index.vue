@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar class="scrollbar-warpper">
+  <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu 
       :default-active="$route.path"
       :collapse="isCollapse"

@@ -65,12 +65,13 @@ export const asyncRoutes = [{
           roles: ['admin', 'editor'] // or you can only set roles in sub nav
         }
       },
- /*      {
+      {
         path: 'directive',
         component: () => import('@/views/permission/directive'),
         name: 'DirectivePermission',
         meta: {
-          title: 'directivePermission'
+          title: 'directivePermission',
+          roles: ['admin', 'editor']
           // if do not set roles, means: this page does not require permission
         }
       },
@@ -80,9 +81,9 @@ export const asyncRoutes = [{
         name: 'RolePermission',
         meta: {
           title: 'rolePermission',
-          roles: ['admin']
+          roles: ['admin', 'editor']
         }
-      } */
+      }
     ]
   },
 
