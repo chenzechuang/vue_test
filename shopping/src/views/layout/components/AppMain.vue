@@ -21,7 +21,7 @@
 
 <style lang="scss" scoped>
   .app-main {
-    min-height:  100%;
+    min-height: calc(100% - 84px);
     width: 100%;
     position: relative;
     overflow: hidden;

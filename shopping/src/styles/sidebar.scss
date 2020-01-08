@@ -1,7 +1,4 @@
-.body-container {
-  position: relative;
-  padding-top: $navBarHeight;
-  height: 100%;
+#app {
   .main-container {
     position: relative;
     height: 100%;
@@ -11,7 +8,8 @@
   .sidebar-container {
     position: fixed;
     width: $sideBarWidth;
-    top: 90px;
+    height: 100%;
+    top: 0;
     bottom: 0;
     left: 0;
     transition: width 0.28s;
