@@ -3,16 +3,17 @@
       <sidebar class="sidebar-container" />
       <div class="main-container">
         <navbar />
+        <tags-view />
         <app-main />
       </div>
     </div>
 </template>
 
 <script>
-  import { Navbar, Sidebar, AppMain } from './components'
+  import { Sidebar, Navbar, TagsView, AppMain } from './components'
   export default {
     name: 'Layout',
-    components: { Navbar, Sidebar, AppMain },
+    components: { Navbar, Sidebar, TagsView, AppMain },
     computed: {
       sidebar() {
         return this.$store.state.app.sidebar

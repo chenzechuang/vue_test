@@ -49,7 +49,8 @@ export default new Router({
 export const asyncRoutes = [{
     path: '/permission',
     component: Layout,
-    redirect: '/permission/index',
+    name: 'permission',
+    redirect: 'noredirect',
     alwaysShow: true, // will always show the root menu
     meta: {
       title: 'permission',
