@@ -46,7 +46,8 @@ export default new Router({
   routes: constantRoutes
 })
 
-export const asyncRoutes = [{
+export const asyncRoutes = [
+  {
     path: '/permission',
     component: Layout,
     name: 'permission',
@@ -87,22 +88,6 @@ export const asyncRoutes = [{
       }
     ]
   },
-
- /*  {
-    path: '/icon',
-    component: Layout,
-    children: [{
-      path: 'index',
-      component: () => import('@/views/svg-icons/index'),
-      name: 'Icons',
-      meta: {
-        title: 'icons',
-        icon: 'icon',
-        noCache: true
-      }
-    }]
-  },
-
   {
     path: '/example',
     component: Layout,
@@ -188,21 +173,6 @@ export const asyncRoutes = [{
   },
 
   {
-    path: '/error-log',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{
-      path: 'log',
-      component: () => import('@/views/errorLog/index'),
-      name: 'ErrorLog',
-      meta: {
-        title: 'errorLog',
-        icon: 'bug'
-      }
-    }]
-  },
-
-  {
     path: '/excel',
     component: Layout,
     redirect: '/excel/export-excel',
@@ -228,14 +198,6 @@ export const asyncRoutes = [{
         }
       },
       {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/mergeHeader'),
-        name: 'MergeHeader',
-        meta: {
-          title: 'mergeHeader'
-        }
-      },
-      {
         path: 'upload-excel',
         component: () => import('@/views/excel/uploadExcel'),
         name: 'UploadExcel',
@@ -244,25 +206,6 @@ export const asyncRoutes = [{
         }
       }
     ]
-  },
-
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    meta: {
-      title: 'zip',
-      icon: 'zip'
-    },
-    children: [{
-      path: 'download',
-      component: () => import('@/views/zip/index'),
-      name: 'ExportZip',
-      meta: {
-        title: 'exportZip'
-      }
-    }]
   },
 
   {
@@ -301,21 +244,6 @@ export const asyncRoutes = [{
   },
 
   {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{
-      path: 'index',
-      component: () => import('@/views/clipboard/index'),
-      name: 'ClipboardDemo',
-      meta: {
-        title: 'clipboardDemo',
-        icon: 'clipboard'
-      }
-    }]
-  },
-
-  {
     path: '/i18n',
     component: Layout,
     children: [{
@@ -330,20 +258,8 @@ export const asyncRoutes = [{
   },
 
   {
-    path: 'external-link',
-    component: Layout,
-    children: [{
-      path: 'https://github.com/PanJiaChen/vue-element-admin',
-      meta: {
-        title: 'externalLink',
-        icon: 'link'
-      }
-    }]
-  },
-
-  {
     path: '*',
     redirect: '/404',
     hidden: true
-  } */
+  }
 ]
