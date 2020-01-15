@@ -13,6 +13,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import * as filters from './filters'
+
 import './icons'
 import './permission' // permission control
 import './mock'
@@ -20,6 +22,11 @@ import './mock'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 /* eslint-disable no-new */
 new Vue({

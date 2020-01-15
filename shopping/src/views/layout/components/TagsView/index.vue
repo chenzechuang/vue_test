@@ -16,10 +16,10 @@
         <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)"></span>
       </router-link>
     </scroll-pane>
-    <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextMenu">
+    <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)">refresh</li>
       <li v-if="!(selectedTag.meta && selectedTag.meta.affix)" @click="closeSelectedTag(selectedTag)">close</li>
-      <li @click="closeOthersTags">closeOthers</li>
+      <li @click="closeOthersTags(selectedTag)">closeOthers</li>
       <li @click="closeAllTags(selectedTag)">closeAll</li>
     </ul>
   </div>
@@ -36,7 +36,7 @@
     data() {
       return {
         visible: false,
-        selectedTag: '',
+        selectedTag: {},
         left: 0,
         top: 0,
         affixTags: []
@@ -46,19 +46,19 @@
       ...mapGetters([
         'visitedViews',
         'permission_routes'
-      ]),
-      visible(value) {
-        if (value) {
-          document.addEventListener('click', this.closeMenu);
-        } else {
-          document.dispatchEvent('click', this.closeMenu);
-        }
-      }
+      ])
     },
     watch: {
       $route() {
         this.addTags();
         this.moveToCurrentTag();
+      },
+      visible(value) {
+        if (value) {
+          document.addEventListener('click', this.closeMenu);
+        } else {
+          document.removeEventListener('click', this.closeMenu);
+        }
       }
     },
     mounted() {
@@ -104,25 +104,69 @@
         return false
       },
       moveToCurrentTag() {
-
+        const tags = this.$refs.tag;
+        this.$nextTick(() => {
+          for (const tag of tags) {
+            if (tag.to.path === this.$route.path) {
+              this.$refs.scrollPane.moveToTarget(tag);
+            }
+          }
+        })
       },
-      closeSelectedTag(tag) {
-
+      refreshSelectedTag(view) {
+        this.$store.dispatch('delCachedView', view).then(() => {
+          const { fullPath } = view;
+          this.$nextTick(() => {
+            this.$router.replace({
+              path: '/redirect' + fullPath
+            })
+          })
+        })
       },
-      refreshSelectedTag(tag) {
-
+      closeSelectedTag(view) {
+        this.$store.dispatch('delView', view).then(({visitedViews}) => {
+          if (this.isActive(view)) {
+            this.toLastetView(visitedViews);
+          }
+        });
       },
-      closeSelectedTag(tag) {
-
-      },
-      closeOthersTags(tag) {
-
+      closeOthersTags(view) {
+        if (!this.isActive(view)) {
+          this.$router.push(view);
+        }
+        this.$store.dispatch('delOthersViews', view).then(() => {
+          this.moveToCurrentTag()
+        })
       },
       closeAllTags() {
-
+        this.$store.dispatch('delAllViews').then(({visitedViews}) => {
+          if (visitedViews.length) {
+            this.toLastetView(visitedViews);
+          }
+        });
       },
-      openMenu(tag, event) {
-
+      toLastetView(visitedViews) {
+        const lastetView = visitedViews.slice(-1)[0];
+        if (lastetView) {
+          this.$router.push(lastetView);
+        } else {
+          this.$router.push('/');
+        }
+      },
+      openMenu(tag, e) {
+        const minMenuWidth = 105;
+        const offsetWidth = this.$el.offsetWidth; 
+        const offsetLeft = this.$el.getBoundingClientRect().left; // container margin left
+        const maxLeft = offsetWidth - minMenuWidth;
+        const left = e.clientX - offsetLeft + 15; // 15: margin right
+        if (left > maxLeft) {
+          this.left = maxLeft;
+        } else {
+          this.left = left;
+        }
+        this.top = e.clientY;
+        this.visible = true;
+        this.selectedTag = tag;
       },
       closeMenu() {
         this.visible = false;

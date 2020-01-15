@@ -19,7 +19,7 @@ const tagsView = {
       }
     },
     DEL_VISITED_VIEW: (state, view) => {
-      for (const [v, i] of state.visitedViews.entries()) {
+      for (const [i, v] of state.visitedViews.entries()) {
         if (v.path === view.path) {
           state.visitedViews.splice(i, 1);
           break;
@@ -27,29 +27,29 @@ const tagsView = {
       }
     },
     DEL_CACHED_VIEW: (state, view) => {
-      for (const [v, i] of state.cachedViews) {
+      for (const [i, v] of state.cachedViews) {
         if (v === view.path) {
           state.cachedViews.splice(i, 1);
           break;
         }
       }
     },
-    DEL_OTHERS_VISITED_VIEW: (state, view) => {
+    DEL_OTHERS_VISITED_VIEWS: (state, view) => {
       state.visitedViews = state.visitedViews.filter(v => {
         return v.meta.affix || v.path === view.path;
       })
     },
-    DEL_OTHERS_CACHED_VIEW: (state, view) => {
+    DEL_OTHERS_CACHED_VIEWS: (state, view) => {
       state.cachedViews = state.cachedViews.filter(v => {
         return v === view.name;
       })
     },
-    DEL_ALL_VISITED_VIEW: (state) => {
+    DEL_ALL_VISITED_VIEWS: (state) => {
       state.visitedViews = state.visitedViews.filter(v => {
         return v.meta.affix;
       })
     },
-    DEL_ALL_CACHED_VIEW: (state) => {
+    DEL_ALL_CACHED_VIEWS: (state) => {
       state.cachedViews = [];
     }
   },
@@ -74,11 +74,18 @@ const tagsView = {
         })
       })
     },
-    delVisitedView({ commit }, view) {
-      commit('DEL_VISITED_VIEW', view);
+    delVisitedView({ commit, state }, view) {
+      return new Promise(resolve => {
+        commit('DEL_VISITED_VIEW', view);
+        resolve([...state.visitedViews]);
+      })
+      
     },
-    delCachedView({ commit }, view) {
-      commit('DEL_CACHED_VIEW', view);
+    delCachedView({ commit, state }, view) {
+      return new Promise(resolve => {
+        commit('DEL_CACHED_VIEW', view);
+        resolve([...state.cachedViews])
+      })
     },
     delOthersViews({ dispatch, state }, view) {
       return new Promise(resolve => {

@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 import loginAPI from './login'
-// import articleAPI from './article'
+import articleAPI from './article'
 // import remoteSearchAPI from './remoteSearch'
 // import transactionAPI from './transaction'
 import roleAPI from './role'
@@ -32,11 +32,11 @@ Mock.mock(/\/roles$/, 'post', roleAPI.addRole)
 Mock.mock(/\/roles\/[A-Za-z0-9]+/, 'put', roleAPI.updateRole)
 Mock.mock(/\/roles\/[A-Za-z0-9]+/, 'delete', roleAPI.deleteRole)
 
-/* // 文章相关
+// 文章相关
 Mock.mock(/\/article\/list/, 'get', articleAPI.getList)
-Mock.mock(/\/article\/detail/, 'get', articleAPI.getArticle)
-Mock.mock(/\/article\/pv/, 'get', articleAPI.getPv)
 Mock.mock(/\/article\/create/, 'post', articleAPI.createArticle)
+/* Mock.mock(/\/article\/detail/, 'get', articleAPI.getArticle)
+Mock.mock(/\/article\/pv/, 'get', articleAPI.getPv)
 Mock.mock(/\/article\/update/, 'post', articleAPI.updateArticle)
 
 // 搜索相关
