@@ -15,3 +15,11 @@ export function createArticle(params) {
     params
   })
 }
+
+export function updateArticle(params) {
+  return request({
+    url: '/article/update',
+    method: 'post',
+    params
+  })
+}

@@ -39,9 +39,7 @@
       </el-table-column>
       <el-table-column label="Actions" align="center" width="120">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/' + scope.row.id">
-            <el-button type="primary" size="small" icon="el-edit-icon" @click="handleEdit(scope.row)">Edit</el-button>
-          </router-link>
+            <el-button type="primary" size="small" icon="el-icon-edit" @click="handleEdit(scope.row)">Edit</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -77,7 +75,7 @@
 </template>
 
 <script>
-  import { fetchList, createArticle } from '@/api/article'
+  import { fetchList, createArticle, updateArticle } from '@/api/article'
   import Pagination from '@/components/Pagination'
   const calendarTypeOptions = [
     { key: 'CN', display_name: 'China' },
@@ -108,7 +106,7 @@
     data() {
       return {
         list: [],
-        importanceOptions: ["all", 1, 2, 3],
+        importanceOptions: [1, 2, 3],
         total: 0,
         loading: false,
         listQuery: {
@@ -209,7 +207,29 @@
         })
       },
       updateData() {
-
+        this.$refs['dataForm'].validate((valid) => {
+          if (valid) {
+            const tempData = Object.assign({}, this.temp)
+            tempData.timestamp = +new Date(tempData.timestamp)
+            updateArticle(tempData).then(res => {
+              if (res.status === 200 && res.data.data === 'success') {
+                for (const [index, item] of this.list.entries()) {
+                  if (item.id === this.temp.id) {
+                    this.list.splice(index, 1, this.temp);
+                    break;
+                  }
+                }
+                this.dialogFormVisible = false
+                this.$notify({
+                  title: '成功',
+                  message: '更新成功',
+                  type: 'success',
+                  duration: 2000
+                })
+              }
+            })
+          }
+        })
       }
     },
   }
