@@ -2,10 +2,13 @@
   <div id="test">
     <p>Reversed message: "{{ reversedMessage() }}"</p>
     <button @click="changeMessage">test</button>
-    <test required placeholder="Enter your username" v-model="searchValue" :style="{fontSize: postFontSize + 'em'}" v-for="post in posts" :post="post" :key="post.title" @enlarge-text="postFontSize += $event">
-        <p>hhhh</p>
+    <test v-slot="{user}" @focus="onFocus" placeholder="Enter your username" v-model="searchValue" :style="{fontSize: postFontSize + 'em'}" v-for="post in posts" :post="post" :key="post.title" @enlarge-text="postFontSize += $event">
+        <p>{{searchValue}}、{{user.lastName}}</p>
     </test>
-    <BaseAa></BaseAa>
+    <transition name="fade">
+      <BaseAa v-show="message == 'hi'"></BaseAa>
+    </transition>
+   
   </div>
 </template>
 
@@ -26,16 +29,24 @@
       }
     },
     methods: {
-      reversedMessage: function () {
+      reversedMessage () {
         return this.message.split('').reverse().join('')
       },
-      changeMessage: function () {
-        this.message = 'hi'
+      changeMessage () {
+         this.message = this.message == 'hi' ? 'hello' : 'hi'
+      },
+      onFocus () {
+        console.log(1);
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
 </style>
