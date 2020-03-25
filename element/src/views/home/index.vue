@@ -8,14 +8,18 @@
     <transition name="fade">
       <BaseAa v-show="message == 'hi'"></BaseAa>
     </transition>
-   
+    <TodoList />
   </div>
 </template>
 
 <script>
-  import test from '@/components/test';
+  import test from '@/components/test'
+  import TodoList from '@/components/TodoList'
   export default {
-    components: {test},
+    components: {
+      test,
+      TodoList
+    },
     data() {
       return {
         searchValue: '',
