@@ -1,5 +1,5 @@
 <template>
-  <div id="test">
+  <!-- <div id="test">
     <p>Reversed message: "{{ reversedMessage() }}"</p>
     <button @click="changeMessage">test</button>
     <test v-slot="{user}" @focus="onFocus" placeholder="Enter your username" v-model="searchValue" :style="{fontSize: postFontSize + 'em'}" v-for="post in posts" :post="post" :key="post.title" @enlarge-text="postFontSize += $event">
@@ -9,11 +9,14 @@
       <BaseAa v-show="message == 'hi'"></BaseAa>
     </transition>
     <TodoList />
+  </div> -->
+  <div>
+    <svg-icon icon-class="404"></svg-icon>
   </div>
 </template>
 
 <script>
-  import test from '@/components/test'
+  /* import test from '@/components/test'
   import TodoList from '@/components/TodoList'
   export default {
     components: {
@@ -43,14 +46,14 @@
         console.log(1);
       }
     }
-  }
+  } */
 </script>
 
 <style lang="scss" scoped>
-  .fade-enter-active, .fade-leave-active {
+  /* .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  .fade-enter, .fade-leave-to {
     opacity: 0;
-  }
+  } */
 </style>

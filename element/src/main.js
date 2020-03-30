@@ -5,8 +5,12 @@ import store from './store'
 import "normalize.css/normalize.css"
 import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+
 import "./config/rem"
+
+import "./icons"
 import "./permission"
+
 import "@/components"
 
 Vue.use(element)

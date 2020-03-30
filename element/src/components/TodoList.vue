@@ -9,12 +9,10 @@
 </template>
 
 <script>
-import BaseInput from "./BaseInput";
-import TodoListItem from "./TodoListItem";
+import TodoListItem from "./TodoListItem"
 export default {
   name: "TodoList",
   components: {
-    BaseInput,
     TodoListItem
   },
   data() {
