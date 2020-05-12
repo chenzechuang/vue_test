@@ -80,7 +80,8 @@ export default {
                     this.$store.dispatch('LoginByUserName', this.ruleForm).then(() => {
                         this.loading = false;
                         this.$router.push({path: this.redirect || '/'});
-                    }).catch(() => {
+                    }).catch((error) => {
+                        this.$message(error);
                         this.loading = false;
                     })
                 } else {

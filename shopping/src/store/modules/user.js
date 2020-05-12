@@ -47,9 +47,13 @@ const user = {
         loginByUserName(username, userInfo.password)
           .then(response => {
             const data = response.data;
-            commit("SET_TOKEN", data.token);
-            setToken(data.token);
-            resolve();
+            if (data) {
+                commit("SET_TOKEN", data.token);
+                setToken(data.token);
+                resolve();
+            } else {
+                reject("该账号尚未注册！");
+            }
           })
           .catch(error => {
             reject(error);
